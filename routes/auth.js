@@ -1,11 +1,12 @@
 const express = require('express')
-const controller = require('../controller/auth')
+const controller = require('../controllers/auth')
 const router = express.Router()
 
-router.get('/login', (req, res) => {
-	
-})
+//localhost:5000/api/auth/login
+router.get('/login', controller.login)
+
+//localhost:5000/api/auth/register
+router.post('/register', controller.register)
 
 module.exports = router
 
-//localhost:5000/api/auth/login
