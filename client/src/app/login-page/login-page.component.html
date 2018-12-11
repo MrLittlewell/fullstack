@@ -5,13 +5,16 @@
                 <input 
                 formControlName="email"
                 id="email" 
-                type="email" >
+                type="email" 
+                [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}"
+                >
                 <label for="email">Email:</label>
                 <span 
                     class="helper-text red-text"
                     *ngIf="form.get('email').invalid && form.get('email').touched"
                     >
-                    Error
+                    <span *ngIf="form.get('email').errors['required']">Email не должен быть пустым</span>
+                    <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес</span>
                 </span>
             </div>
             <div class="input-field">
@@ -19,8 +22,19 @@
                 id="password" 
                 type="password"
                 formControlName="password"
+                [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}"
                 >
                 <label for="password">Пароль:</label>
+                <span 
+                    class="helper-text red-text"
+                    *ngIf="form.get('password').invalid && form.get('password').touched"
+                    >
+                    <span *ngIf="form.get('password').errors['required']">Пароль не должен быть пустым</span>
+                    <span *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
+                        Пароль должен быть больше {{form.get('password').errors['minlength']['requiredLength']}} символов.
+                        Сейчас {{form.get('password').errors['minlength']['actualLength']}}
+                    </span>
+                </span>
             </div>
         </div>
         <div class="card-action">
