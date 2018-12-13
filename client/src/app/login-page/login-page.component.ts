@@ -25,7 +25,7 @@ export class LoginPageComponent implements OnInit {
     this.auth.login(this.form.value).subscribe(
       () => console.log('Login success'),
       error => {
-        console.warn()
+        console.warn(error)
       }
      )
   }
