@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators'
 
 
 
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -17,7 +18,9 @@ export class AuthService {
 
 	}
 
-	register() {}
+	register(user: User): Observable<User> {
+		return this.http.post<User>('/api/auth/register', user)
+	}
 
 	login(user: User): Observable<{token: string}> {
 		return this.http.post<{token: string}>('/api/auth/login', user)
