@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators} from '@angular/forms'
 import { AuthService} from '../shared/services/auth.service'
 import { Subscription} from 'rxjs/index'
@@ -31,6 +31,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         MaterialService.toast('Теперь вы можете зайти в систему используя свои данные')
       } else if (params['accessDenied']) {
         MaterialService.toast('Для начала авторизуйтесь в системе')
+      } else if (params['sessionFailed']){
+        MaterialService.toast('Пожалуйста войдите в систему заного')
       }
     })
 

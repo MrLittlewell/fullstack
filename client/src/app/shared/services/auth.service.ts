@@ -4,9 +4,6 @@ import {Observable} from 'rxjs'
 import {User} from '../interfaces'
 import {tap} from 'rxjs/operators'
 
-
-
-
 @Injectable({
 	providedIn: 'root'
 })
