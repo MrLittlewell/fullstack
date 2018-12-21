@@ -55,7 +55,7 @@ module.exports.update = async function(req, res) {
 	}
 	try{
 		const category = await Category.findOneAndUpdate(
-			{_id: req.params.od},
+			{_id: req.params.id},
 			{$set: updated},
 			{new: true}
 		)
