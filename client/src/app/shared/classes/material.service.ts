@@ -2,7 +2,7 @@ import {ElementRef} from '@angular/core'
 
 declare var M
 
-export interface MaterialInstans {
+export interface MaterialInstance {
   open?(): void
   close?(): void
   destroy?(): void
@@ -20,7 +20,7 @@ export class MaterialService {
 	  M.updateTextFields()
   }
 
-  static initModal(ref: ElementRef): MaterialInstans {
+  static initModal(ref: ElementRef): MaterialInstance {
 	  return M.Modal.init(ref.nativeElement)
   }
 }
