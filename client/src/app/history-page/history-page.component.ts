@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild, OnDestroy, AfterViewInit} from
 import {MaterialInstance, MaterialService} from '../shared/classes/material.service'
 import {OrdersService} from '../shared/services/orders.service'
 import {Subscription} from 'rxjs'
-import {Order} from '../shared/interfaces'
+import {Filter, Order} from '../shared/interfaces'
 
 const STEP = 2
 
@@ -11,13 +11,14 @@ const STEP = 2
   templateUrl: './history-page.component.html',
   styleUrls: ['./history-page.component.css']
 })
-export class HistoryPageComponent implements OnInit {
+export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('tooltip') tooltipRef: ElementRef
   tooltip: MaterialInstance
   oSub: Subscription
   isFilterVisible = false
   orders: Order[] = []
+  filter: Filter = {}
 
   offset = 0
   limit = STEP
@@ -35,10 +36,10 @@ export class HistoryPageComponent implements OnInit {
   }
 
   private fetch() {
-    const params = {
+    const params = Object.assign({}, this.filter, {
       offset: this.offset,
       limit: this.limit
-    }
+    })
     this.oSub = this.ordersService.fetch(params).subscribe(orders => {
       this.orders = this.orders.concat(orders)
       this.noMoreOrders = orders.length < STEP
@@ -58,8 +59,18 @@ export class HistoryPageComponent implements OnInit {
     this.oSub.unsubscribe()
   }
 
+  applyFilter(filter: Filter) {
+    this.orders = []
+    this.offset = 0
+    this.filter = filter
+    this.reloading = true
+    this.fetch()
+  }
+
   ngAfterViewInit() {
     this.tooltip = MaterialService.initTooltip(this.tooltipRef)
   }
-
+  isFiltered(): boolean {
+    return Object.keys(this.filter).length !== 0
+  }
 }
