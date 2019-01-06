@@ -1,5 +1,3 @@
-import {Options as process} from "selenium-webdriver/remote";
-
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
